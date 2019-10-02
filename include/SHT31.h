@@ -1,7 +1,7 @@
 #pragma once
 #include <stdbool.h>
 #include <stdint.h>
-#include "mgos_ds28e17_rmt.h"
+#include "DS28E17Rmt.h"
 
 #define SHT31_DEFAULT_ADDR    0x44
 #define SHT31_MEAS_HIGHREP_STRETCH 0x2C06
