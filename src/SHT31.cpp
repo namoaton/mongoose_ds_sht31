@@ -1,0 +1,145 @@
+#include "../include/SHT31.h"
+#include "mgos.h"
+#include <mgos_system.h>
+#include <mgos_time.h>
+
+SHT31::SHT31():ds28e17(nullptr){
+    
+}
+SHT31::SHT31(DS28E17Rmt * ds, char* ds_addr,  uint8_t addr ) {
+    _i2caddr = addr;
+    ds28e17 = ds;
+    memcpy(deviceAddress,ds_addr,8); 
+    
+}
+
+
+bool SHT31::begin(uint8_t i2caddr) {
+//   Wire.begin();
+  _i2caddr = i2caddr;
+  reset();
+  //return (readStatus() == 0x40);
+  return true;
+}
+
+uint16_t SHT31::readStatus(void) {
+  writeCommand(SHT31_READSTATUS);
+  uint8_t data[3] = {0,0,0};
+  mgos_ds28e17_rmt_read_data_stop(ds28e17,(uint8_t*) deviceAddress, _i2caddr, 3, data);
+//   Wire.requestFrom(_i2caddr, (uint8_t)3);
+  uint16_t stat = data[0]<<8;
+  stat |= data[1];
+  //Serial.println(stat, HEX);
+  return stat;
+}
+
+void SHT31::reset(void) {
+  writeCommand(SHT31_SOFTRESET);
+  mgos_msleep(10);
+}
+
+void SHT31::heater(bool h) {
+  if (h)
+    writeCommand(SHT31_HEATEREN);
+  else
+    writeCommand(SHT31_HEATERDIS);
+}
+
+
+float SHT31::readTemperature(void) {
+  if (! readTempHum()) return NULL;
+
+  return temp;
+}
+  
+
+float SHT31::readHumidity(void) {
+  if (! readTempHum()) return NULL;
+
+  return humidity;
+}
+bool SHT31::readTH(float* data){
+  bool res = true;
+  res = readTempHum();
+  if(res){
+    data[0] = humidity;
+    data[1] = temp;
+  }
+  return res;
+}
+
+
+bool SHT31::readTempHum(void) {
+  uint8_t readbuffer[6];
+
+  writeCommand(SHT31_MEAS_HIGHREP);  
+  mgos_msleep(500);
+  mgos_ds28e17_rmt_read_data_stop(ds28e17,(uint8_t*) deviceAddress, (_i2caddr<<1)|1, 6, readbuffer);
+
+  uint16_t ST, SRH;
+  ST = readbuffer[0];
+  ST <<= 8;
+  ST |= readbuffer[1];
+  if (readbuffer[2] != crc8(readbuffer, 2)) return false;
+
+  SRH = readbuffer[3];
+  SRH <<= 8;
+  SRH |= readbuffer[4];
+
+  if (readbuffer[5] != crc8(readbuffer+3, 2)) return false;
+  // LOG(LL_WARN, ("ST = %X",ST));
+ // Serial.print("ST = "); Serial.println(ST);
+  double stemp = ST;
+  stemp *= 175;
+  stemp /= 0xffff;
+  stemp = -45 + stemp;
+  temp = stemp;
+  // LOG(LL_WARN, ("SRH = %X",SRH));
+//  Serial.print("SRH = "); Serial.println(SRH);
+  double shum = SRH;
+  shum *= 100;
+  shum /= 0xFFFF;
+  
+  humidity = shum;
+  
+  return true;
+}
+
+void SHT31::writeCommand(uint16_t cmd) {
+  uint8_t data[2];
+  data[0] = (uint8_t)(cmd>>8);
+  data[1] = (uint8_t)(cmd &0xff);
+  mgos_ds28e17_rmt_write_data_stop(ds28e17, (uint8_t*)deviceAddress, _i2caddr<<1, 2, data);
+//   Wire.beginTransmission(_i2caddr);
+//   Wire.write(cmd >> 8);
+//   Wire.write(cmd & 0xFF);
+//   Wire.endTransmission();  
+}
+
+uint8_t SHT31::crc8(const uint8_t *data, int len)
+{
+/*
+*
+ * CRC-8 formula from page 14 of SHT spec pdf
+ *
+ * Test data 0xBE, 0xEF should yield 0x92
+ *
+ * Initialization data 0xFF
+ * Polynomial 0x31 (x8 + x5 +x4 +1)
+ * Final XOR 0x00
+ */
+unsigned char crc = 0xFF;
+ unsigned int i;
+
+    while (len--)
+    {
+        crc ^= *data++;
+
+        for (i = 0; i < 8; i++)
+            crc = crc & 0x80 ? (crc << 1) ^ 0x31 : crc << 1;
+    }
+
+    return crc;
+}
+
+
