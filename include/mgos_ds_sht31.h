@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-namespace eCozy {
+
 #ifdef __cplusplus
 #include "DS28E17Rmt.h"
 #include "SHT31.h"
@@ -19,7 +19,11 @@ typedef struct SHT31Tag SHT31;
 //#endif
 
 
-    SHT31 *mgos_ds_sht31_create(DS28E17Rmt *ds, char *ds_addr, uint8_t addr);
+    //SHT31 *mgos_ds_sht31_create(DS28E17Rmt *ds, char *ds_addr, uint8_t addr);
+    SHT31 *mgos_ds_sht31_create(DS28E17Rmt * ds, char* ds_addr,  uint8_t addr)  {
+        if (ds == nullptr) return nullptr;
+        return new SHT31(ds,ds_addr,addr);
+    }
 
     void mgos_ds_sht31_close(SHT31 *sht);
 
@@ -40,5 +44,5 @@ typedef struct SHT31Tag SHT31;
 
 #ifdef __cplusplus
 //}
-}
+
 #endif
