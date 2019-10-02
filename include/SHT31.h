@@ -19,7 +19,7 @@
 class SHT31 {
  public:
   SHT31();
-  SHT31(DS28E17Rmt * ds, char* ds_addr, uint8_t addr);
+  void Init(DS28E17Rmt * ds, char* ds_addr, uint8_t addr);
   bool begin(uint8_t i2caddr = SHT31_DEFAULT_ADDR);
   bool readTH(float* data);
   float readTemperature(void);
