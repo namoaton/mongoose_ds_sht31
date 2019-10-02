@@ -5,18 +5,19 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+namespace eCozy {
 #ifdef __cplusplus
 #include "DS28E17Rmt.h"
 #include "SHT31.h"
 #else
-typedef struct DS28E17RmtTag DS28E17Rmt;
+    typedef struct DS28E17RmtTag DS28E17Rmt;
 typedef struct SHT31Tag SHT31;
 #endif
 
 //#ifdef __cplusplus
 //extern "C" {
 //#endif
-namespace eCozy {
+
 
     SHT31 *mgos_ds_sht31_create(DS28E17Rmt *ds, char *ds_addr, uint8_t addr);
 
@@ -35,8 +36,9 @@ namespace eCozy {
     void mgos_ds_sht31_heater(SHT31 *sht, bool h);
 
     uint8_t mgos_ds_sht31_crc8(const uint8_t *data, int len);
-}
+
 
 #ifdef __cplusplus
 //}
+}
 #endif
