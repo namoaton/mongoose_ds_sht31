@@ -1,3 +1,6 @@
+#pragma once
+#include <stdbool.h>
+#include <stdint.h>
 #include "mgos_ds28e17_rmt.h"
 
 #define SHT31_DEFAULT_ADDR    0x44
