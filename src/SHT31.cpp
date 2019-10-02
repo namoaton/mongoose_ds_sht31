@@ -2,7 +2,7 @@
 #include "mgos.h"
 #include <mgos_system.h>
 #include <mgos_time.h>
-
+#include "mgos_ds28e17_rmt.h"
 SHT31::SHT31():ds28e17(nullptr){
     
 }
