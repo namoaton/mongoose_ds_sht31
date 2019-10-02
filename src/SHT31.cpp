@@ -6,7 +6,7 @@
 SHT31::SHT31():ds28e17(nullptr){
     
 }
-SHT31::SHT31(DS28E17Rmt * ds, char* ds_addr,  uint8_t addr ) {
+SHT31::Init(DS28E17Rmt * ds, char* ds_addr,  uint8_t addr ) {
     _i2caddr = addr;
     ds28e17 = ds;
     memcpy(deviceAddress,ds_addr,8); 
