@@ -2,7 +2,7 @@
 // Created by namoaton on 02.10.19.
 //
 #include <mgos.h>
-#include "mgos_ds28e17_rmt.h"
+//#include "mgos_ds28e17_rmt.h"
 #include "mgos_ds_sht31.h"
 
 SHT31 *mgos_ds_sht31_create(DS28E17Rmt * ds, char* ds_addr,  uint8_t addr)  {
