@@ -3,7 +3,7 @@
 //
 
 #include <mgos.h>
-#include "mgos_ds28e17_rmt.h"
+//#include "mgos_ds28e17_rmt.h"
 #include "mgos_ds_sht31.h"
 
 
