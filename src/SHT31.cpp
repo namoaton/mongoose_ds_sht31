@@ -1,4 +1,4 @@
-#include "../include/SHT31.h"
+#include "SHT31.h"
 #include "mgos.h"
 #include <mgos_system.h>
 #include <mgos_time.h>
