@@ -16,18 +16,27 @@ typedef struct SHT31Tag SHT31;
 //#ifdef __cplusplus
 //extern "C" {
 //#endif
+namespace eCozy {
 
-SHT31 *mgos_ds_sht31_create(DS28E17Rmt * ds, char* ds_addr,  uint8_t addr);
-void mgos_ds_sht31_close(SHT31 *sht);
-bool mgos_ds_sht31_begin(SHT31 *sht);
-bool mgos_ds_sht31_read_TH(SHT31 *sht,float* data);
-float mgos_ds_sht31_read_temperature(SHT31 *sht);
-float mgos_ds_sht31_read_humidity(SHT31 *sht);
-void mgos_ds_sht31_reset(SHT31 *sht);
-void mgos_ds_sht31_heater(SHT31 *sht, bool h);
-uint8_t mgos_ds_sht31_crc8(const uint8_t *data, int len);
+    SHT31 *mgos_ds_sht31_create(DS28E17Rmt *ds, char *ds_addr, uint8_t addr);
 
- 
+    void mgos_ds_sht31_close(SHT31 *sht);
+
+    bool mgos_ds_sht31_begin(SHT31 *sht);
+
+    bool mgos_ds_sht31_read_TH(SHT31 *sht, float *data);
+
+    float mgos_ds_sht31_read_temperature(SHT31 *sht);
+
+    float mgos_ds_sht31_read_humidity(SHT31 *sht);
+
+    void mgos_ds_sht31_reset(SHT31 *sht);
+
+    void mgos_ds_sht31_heater(SHT31 *sht, bool h);
+
+    uint8_t mgos_ds_sht31_crc8(const uint8_t *data, int len);
+}
+
 #ifdef __cplusplus
 //}
 #endif
