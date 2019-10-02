@@ -2,7 +2,7 @@
 #include "mgos.h"
 #include <mgos_system.h>
 #include <mgos_time.h>
-#include "mgos_ds28e17_rmt.h"
+
 SHT31::SHT31():ds28e17(nullptr){
     
 }
@@ -109,7 +109,7 @@ void SHT31::writeCommand(uint16_t cmd) {
   uint8_t data[2];
   data[0] = (uint8_t)(cmd>>8);
   data[1] = (uint8_t)(cmd &0xff);
-  mgos_ds28e17_rmt_write_data_stop(ds28e17, (uint8_t*)deviceAddress, _i2caddr<<1, 2, data);
+  ds28e17->WriteDataStop( (uint8_t*)deviceAddress, _i2caddr<<1, 2, data);
 //   Wire.beginTransmission(_i2caddr);
 //   Wire.write(cmd >> 8);
 //   Wire.write(cmd & 0xFF);
