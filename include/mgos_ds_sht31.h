@@ -23,7 +23,7 @@ typedef struct SHT31Tag SHT31;
     SHT31 *mgos_ds_sht31_create(DS28E17Rmt * ds, char* ds_addr,  uint8_t addr)  {
        // if (ds == nullptr) return nullptr;
         return  NULL;//SHT31(ds,ds_addr,addr);
-        return new SHT31(ds,ds_addr,addr);
+//        return new SHT31(ds,ds_addr,addr);
     };
 
     void mgos_ds_sht31_close(SHT31 *sht);
