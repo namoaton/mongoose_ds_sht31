@@ -9,10 +9,10 @@
 #ifdef __cplusplus
 #include "DS28E17Rmt.h"
 #include "SHT31.h"
-#else
+//#else
     typedef struct DS28E17RmtTag DS28E17Rmt;
 typedef struct SHT31Tag SHT31;
-#endif
+//#endif
 
 //#ifdef __cplusplus
 //extern "C" {
@@ -44,7 +44,7 @@ typedef struct SHT31Tag SHT31;
     uint8_t mgos_ds_sht31_crc8(const uint8_t *data, int len);
 
 
-#ifdef __cplusplus
+//#ifdef __cplusplus
 //}
 
 #endif
