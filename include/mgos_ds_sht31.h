@@ -10,8 +10,9 @@
 #include "DS28E17Rmt.h"
 #include "SHT31.h"
 //#else
-    typedef struct DS28E17RmtTag DS28E17Rmt;
-typedef struct SHT31Tag SHT31;
+//    typedef struct DS28E17RmtTag DS28E17Rmt;
+//typedef struct SHT31Tag SHT31;
+
 //#endif
 
 //#ifdef __cplusplus
