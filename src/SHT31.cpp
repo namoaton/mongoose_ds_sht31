@@ -25,7 +25,7 @@ bool SHT31::begin(uint8_t i2caddr) {
 uint16_t SHT31::readStatus(void) {
   writeCommand(SHT31_READSTATUS);
   uint8_t data[3] = {0,0,0};
-  mgos_ds28e17_rmt_read_data_stop(ds28e17,(uint8_t*) deviceAddress, _i2caddr, 3, data);
+  ds28e17->ReadDataStop((uint8_t*) deviceAddress, _i2caddr, 3, data);
 //   Wire.requestFrom(_i2caddr, (uint8_t)3);
   uint16_t stat = data[0]<<8;
   stat |= data[1];
@@ -74,7 +74,7 @@ bool SHT31::readTempHum(void) {
 
   writeCommand(SHT31_MEAS_HIGHREP);  
   mgos_msleep(500);
-  mgos_ds28e17_rmt_read_data_stop(ds28e17,(uint8_t*) deviceAddress, (_i2caddr<<1)|1, 6, readbuffer);
+  ds28e17->ReadDataStop((uint8_t*) deviceAddress, (_i2caddr<<1)|1, 6, readbuffer);
 
   uint16_t ST, SRH;
   ST = readbuffer[0];
