@@ -36,11 +36,11 @@ bool SHT31::begin(DS28E17Rmt * ds, char* ds_addr, uint8_t i2caddr) {;
     reset();
   return true;
 }
-bool SHT31::begin(uint8_t i2caddr) {
-    _i2caddr = i2caddr;
-    reset();
-    return true;
-}
+//bool SHT31::begin(uint8_t i2caddr) {
+//    _i2caddr = i2caddr;
+//    reset();
+//    return true;
+//}
 uint16_t SHT31::readStatus(void) {
   writeCommand(SHT31_READSTATUS);
   uint8_t data[3] = {0,0,0};
