@@ -64,15 +64,13 @@ void SHT31::heater(bool h) {
 
 
 float SHT31::readTemperature(void) {
-  if (! readTempHum()) return NULL;
-
+  readTempHum();
   return temp;
 }
   
 
 float SHT31::readHumidity(void) {
-  if (! readTempHum()) return NULL;
-
+  readTempHum();
   return humidity;
 }
 bool SHT31::readTH(float* data){
@@ -105,14 +103,12 @@ bool SHT31::readTempHum(void) {
 
   if (readbuffer[5] != crc8(readbuffer+3, 2)) return false;
   // LOG(LL_WARN, ("ST = %X",ST));
- // Serial.print("ST = "); Serial.println(ST);
   double stemp = ST;
   stemp *= 175;
   stemp /= 0xffff;
   stemp = -45 + stemp;
   temp = stemp;
   // LOG(LL_WARN, ("SRH = %X",SRH));
-//  Serial.print("SRH = "); Serial.println(SRH);
   double shum = SRH;
   shum *= 100;
   shum /= 0xFFFF;
