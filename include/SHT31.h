@@ -23,7 +23,7 @@ private:
     void writeCommand(uint16_t cmd);
 
     uint8_t _i2caddr;
-    bool _ownBridge;
+    bool _ownBridge = false;
 
     bool readData(void);
 

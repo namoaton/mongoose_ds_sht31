@@ -3,16 +3,17 @@
 #include <mgos_system.h>
 #include <mgos_time.h>
 
-SHT31::SHT31():_ds(nullptr),_ownBridge(false){
+SHT31::SHT31(){
     
 }
-SHT31::SHT31(DS28E17Rmt *ds) :_ownBridge(false)  {
+SHT31::SHT31(DS28E17Rmt *ds) {
     setBridge(ds);
 }
 
 SHT31::~SHT31() {
     if (_ownBridge) {
         delete _ds;
+        _ownBridge = false;
     }
 }
 
@@ -21,6 +22,7 @@ void SHT31::setBridge(DS28E17Rmt *ds) {
         delete _ds;
        _ds = nullptr;
     }
+    _ownBridge = true;
    _ds = ds;
 }
 
@@ -87,7 +89,7 @@ bool SHT31::readTempHum(void) {
 
   writeCommand(SHT31_MEAS_HIGHREP);  
   mgos_msleep(500);
-  _ds->ReadDataStop((uint8_t*) deviceAddress, (_i2caddr<<1)|1, 6, readbuffer);
+  _ds->ReadDataStop((uint8_t*) _deviceAddress, (_i2caddr<<1)|1, 6, readbuffer);
 
   uint16_t ST, SRH;
   ST = readbuffer[0];
@@ -122,7 +124,7 @@ void SHT31::writeCommand(uint16_t cmd) {
   uint8_t data[2];
   data[0] = (uint8_t)(cmd>>8);
   data[1] = (uint8_t)(cmd &0xff);
-  _ds->WriteDataStop( (uint8_t*)deviceAddress, _i2caddr<<1, 2, data);
+  _ds->WriteDataStop( (uint8_t*)_deviceAddress, _i2caddr<<1, 2, data);
 //   Wire.beginTransmission(_i2caddr);
 //   Wire.write(cmd >> 8);
 //   Wire.write(cmd & 0xFF);
