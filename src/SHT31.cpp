@@ -18,7 +18,7 @@ SHT31::~SHT31() {
 
 void SHT31::setBridge(DS28E17Rmt *ds) {
     if (_ownBridge) {
-        delete_ds;
+        delete _ds;
        _ds = nullptr;
     }
    _ds = ds;

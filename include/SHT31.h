@@ -17,28 +17,41 @@
 #define SHT31_HEATERDIS            0x3066
 
 class SHT31 {
- public:
-  SHT31();
-  SHT31(DS28E17Rmt *ds);
-  ~SHT31();
-  void setBridge(DS28E17Rmt *ds);
-  bool begin(DS28E17Rmt * ds, char* ds_addr,uint8_t i2caddr = SHT31_DEFAULT_ADDR);
-  bool readTH(float* data);
-  float readTemperature(void);
-  float readHumidity(void);
-  uint16_t readStatus(void);
-  void reset(void);
-  void heater(bool);
-  uint8_t crc8(const uint8_t *data, int len);
+private:
+    bool readTempHum(void);
 
- private:
-  bool readTempHum(void);
-  void writeCommand(uint16_t cmd);
+    void writeCommand(uint16_t cmd);
 
-  uint8_t _i2caddr;
-  bool _ownBridge;
-  bool readData(void);
-  float humidity, temp;
-  DS28E17Rmt * _ds;
-  char _deviceAddress[8];
+    uint8_t _i2caddr;
+    bool _ownBridge;
+
+    bool readData(void);
+
+    float humidity, temp;
+    DS28E17Rmt *_ds;
+    char _deviceAddress[8];
+public:
+    SHT31();
+
+    SHT31(DS28E17Rmt *ds);
+
+    ~SHT31();
+
+    void setBridge(DS28E17Rmt *ds);
+
+    bool begin(DS28E17Rmt *ds, char *ds_addr, uint8_t i2caddr = SHT31_DEFAULT_ADDR);
+
+    bool readTH(float *data);
+
+    float readTemperature(void);
+
+    float readHumidity(void);
+
+    uint16_t readStatus(void);
+
+    void reset(void);
+
+    void heater(bool);
+
+    uint8_t crc8(const uint8_t *data, int len);
 };
