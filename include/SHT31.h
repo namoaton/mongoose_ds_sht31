@@ -17,19 +17,7 @@
 #define SHT31_HEATERDIS            0x3066
 
 class SHT31 {
-private:
-    bool readTempHum(void);
 
-    void writeCommand(uint16_t cmd);
-
-    uint8_t _i2caddr;
-    bool _ownBridge = false;
-
-    bool readData(void);
-
-    float humidity, temp;
-    DS28E17Rmt *_ds;
-    char _deviceAddress[8];
 public:
     SHT31();
 
@@ -60,4 +48,17 @@ public:
     void heater(bool);
 
     uint8_t crc8(const uint8_t *data, int len);
+private:
+    bool readTempHum(void);
+
+    void writeCommand(uint16_t cmd);
+
+    uint8_t _i2caddr;
+    bool _ownBridge = false;
+
+    bool readData(void);
+
+    float humidity, temp;
+    DS28E17Rmt *_ds;
+    char _deviceAddress[8];
 };
