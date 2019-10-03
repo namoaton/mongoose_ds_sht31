@@ -11,9 +11,9 @@ SHT31::SHT31(){
 SHT31::SHT31(DS28E17Rmt *ds) {
     setBridge(ds);
 }
-SHT31::SHT31(DS28E17Rmt *ds, char* ds_addr,  uint8_t addr):_ds(ds),
+SHT31::SHT31(DS28E17Rmt *ds, char* ds_addr,  uint8_t addr): _i2caddr(addr),_ds(ds),
     _deviceAddress {ds_addr[0], ds_addr[1], ds_addr[2], ds_addr[3], ds_addr[4],
-                    ds_addr[5], ds_addr[6], ds_addr[7]}, _i2caddr(addr)
+                    ds_addr[5], ds_addr[6], ds_addr[7]}
 {
     setBridge(ds);
 }
