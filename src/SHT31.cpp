@@ -1,6 +1,6 @@
 #include "SHT31.h"
-extern "C" {
 #include "mgos.h"
+extern "C" {
 #include <mgos_system.h>
 #include <mgos_time.h>
 }
