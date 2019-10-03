@@ -3,21 +3,34 @@
 #include <mgos_system.h>
 #include <mgos_time.h>
 
-SHT31::SHT31():ds28e17(nullptr){
+SHT31::SHT31():ds28e17(nullptr),_ownBridge(false){
     
 }
-SHT31::Init(DS28E17Rmt * ds, char* ds_addr,  uint8_t addr ) {
-    _i2caddr = addr;
-    ds28e17 = ds;
-    memcpy(deviceAddress,ds_addr,8); 
-    
+SHT31::SHT31(DS28E17Rmt *ds) :_ownBridge(false)  {
+    setBridge(ds);
+}
+
+SHT31::~SHT31() {
+    if (_ownBridge) {
+        delete _ds;
+    }
+}
+
+void DS28E17Rmt::setBridge(DS28E17Rmt *ds) {
+    if (_ownBridge) {
+        delete_ds;
+       _ds = nullptr;
+    }
+   _ds = ds;
 }
 
 
-bool SHT31::begin(uint8_t i2caddr) {
+bool SHT31::begin(DS28E17Rmt * ds, char* ds_addr, uint8_t i2caddr) {
 //   Wire.begin();
-  _i2caddr = i2caddr;
-  reset();
+     _i2caddr = i2caddr;
+    setBridge(ds);
+    memcpy(_deviceAddress,ds_addr,8);
+    reset();
   //return (readStatus() == 0x40);
   return true;
 }
@@ -25,7 +38,7 @@ bool SHT31::begin(uint8_t i2caddr) {
 uint16_t SHT31::readStatus(void) {
   writeCommand(SHT31_READSTATUS);
   uint8_t data[3] = {0,0,0};
-  ds28e17->ReadDataStop((uint8_t*) deviceAddress, _i2caddr, 3, data);
+  _ds->ReadDataStop((uint8_t*) _deviceAddress, _i2caddr, 3, data);
 //   Wire.requestFrom(_i2caddr, (uint8_t)3);
   uint16_t stat = data[0]<<8;
   stat |= data[1];

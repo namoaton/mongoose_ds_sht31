@@ -19,8 +19,10 @@
 class SHT31 {
  public:
   SHT31();
-  void Init(DS28E17Rmt * ds, char* ds_addr, uint8_t addr);
-  bool begin(uint8_t i2caddr = SHT31_DEFAULT_ADDR);
+  SHT31(DS28E17Rmt *ds);
+  ~SHT31();
+  void setBridge(DS28E17Rmt *ds);
+  bool begin(DS28E17Rmt * ds, char* ds_addr,uint8_t i2caddr = SHT31_DEFAULT_ADDR);
   bool readTH(float* data);
   float readTemperature(void);
   float readHumidity(void);
@@ -34,8 +36,9 @@ class SHT31 {
   void writeCommand(uint16_t cmd);
 
   uint8_t _i2caddr;
+  bool _ownBridge;
   bool readData(void);
   float humidity, temp;
-  DS28E17Rmt * ds28e17;
-  char deviceAddress[8];
+  DS28E17Rmt * _ds;
+  char _deviceAddress[8];
 };
