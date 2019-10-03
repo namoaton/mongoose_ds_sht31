@@ -1,6 +1,6 @@
 #include "SHT31.h"
-#include "mgos.h"
-#include <mgos_system.h>
+//#include "mgos.h"
+//#include <mgos_system.h>
 #include <mgos_time.h>
 
 SHT31::SHT31(){
