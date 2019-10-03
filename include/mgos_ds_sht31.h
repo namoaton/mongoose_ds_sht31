@@ -20,7 +20,7 @@ extern "C" {
 
 
     //SHT31 *mgos_ds_sht31_create(DS28E17Rmt *ds, char *ds_addr, uint8_t addr);
-    void mgos_ds_sht31_create(DS28E17Rmt * ds, char* ds_addr,  uint8_t addr);
+    SHT31* mgos_ds_sht31_create(DS28E17Rmt * ds, char* ds_addr,  uint8_t addr);
 
     void mgos_ds_sht31_close(SHT31 *sht);
 
