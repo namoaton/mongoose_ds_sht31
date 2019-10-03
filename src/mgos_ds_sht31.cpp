@@ -5,8 +5,9 @@
 //#include "mgos_ds28e17_rmt.h"
 #include "mgos_ds_sht31.h"
 
-void mgos_ds_sht31_create(SHT31* sht, DS28E17Rmt * ds, char* ds_addr,  uint8_t addr)  {
-    sht->begin(ds, ds_addr, addr);
+SHT31* mgos_ds_sht31_create(DS28E17Rmt * ds, char* ds_addr,  uint8_t addr)  {
+    return new SHT31(ds,ds_addr,addr);
+
 }
 void mgos_ds28e17_rmt_close(SHT31 *sht) {
     if (sht != nullptr) {

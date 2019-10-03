@@ -35,9 +35,13 @@ public:
 
     SHT31(DS28E17Rmt *ds);
 
+    SHT31(DS28E17Rmt *ds, char* ds_addr,  uint8_t addr);
+
     ~SHT31();
 
     void setBridge(DS28E17Rmt *ds);
+
+    void init(DS28E17Rmt *ds, char* ds_addr,  uint8_t addr);
 
     bool begin(DS28E17Rmt *ds, char *ds_addr, uint8_t i2caddr = SHT31_DEFAULT_ADDR);
 

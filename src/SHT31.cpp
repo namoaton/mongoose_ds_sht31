@@ -11,12 +11,19 @@ SHT31::SHT31(){
 SHT31::SHT31(DS28E17Rmt *ds) {
     setBridge(ds);
 }
-
+SHT31::SHT31(DS28E17Rmt *ds, char* ds_addr,  uint8_t addr) {
+    init(ds,ds_addr,addr);
+}
 SHT31::~SHT31() {
     if (_ownBridge) {
         delete _ds;
         _ownBridge = false;
     }
+}
+void SHT31::init(DS28E17Rmt *ds, char* ds_addr,  uint8_t addr){
+    _i2caddr = i2caddr;
+    setBridge(ds);
+    memcpy(_deviceAddress,ds_addr,8);
 }
 
 void SHT31::setBridge(DS28E17Rmt *ds) {
