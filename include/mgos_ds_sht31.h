@@ -9,21 +9,20 @@
 #ifdef __cplusplus
 #include "DS28E17Rmt.h"
 #include "SHT31.h"
-//#else
-//    typedef struct DS28E17RmtTag DS28E17Rmt;
-//typedef struct SHT31Tag SHT31;
+#else
+typedef struct DS28E17RmtTag DS28E17Rmt;
+typedef struct SHT31Tag SHT31;
+#endif
 
-//#endif
-
-//#ifdef __cplusplus
-//extern "C" {
-//#endif
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 
     //SHT31 *mgos_ds_sht31_create(DS28E17Rmt *ds, char *ds_addr, uint8_t addr);
     void mgos_ds_sht31_create(SHT31 *_SHT31 ,DS28E17Rmt * ds, char* ds_addr,  uint8_t addr)  {
        // if (ds == nullptr) return nullptr;
-        _SHT31->Init(ds,ds_addr,addr);
+        _SHT31->begin(ds,ds_addr,addr);
        //SHT31(ds,ds_addr,addr);
 //        return new SHT31(ds,ds_addr,addr);
     };
@@ -45,7 +44,7 @@
     uint8_t mgos_ds_sht31_crc8(const uint8_t *data, int len);
 
 
-//#ifdef __cplusplus
-//}
+#ifdef __cplusplus
+}
 
 #endif
