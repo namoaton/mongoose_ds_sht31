@@ -6,10 +6,9 @@
 #include "mgos_ds_sht31.h"
 
 void mgos_ds_sht31_create(SHT31* sht, DS28E17Rmt * ds, char* ds_addr,  uint8_t addr)  {
-    if (ds == nullptr) return nullptr;
     sht->begin(ds, ds_addr, addr);
 }
-void mgos_ds28e17_rmt_close((SHT31 *sht) {
+void mgos_ds28e17_rmt_close(SHT31 *sht) {
     if (sht != nullptr) {
         delete sht;
         sht = nullptr;
@@ -17,17 +16,16 @@ void mgos_ds28e17_rmt_close((SHT31 *sht) {
 }
 
 bool mgos_ds_sht31_begin(SHT31 *sht,uint8_t i2caddr){
-    if (sht == nullptr) return;
+    if (sht == nullptr) return false;
     return sht->begin(i2caddr);
 }
 
 bool mgos_ds_sht31_read_TH(SHT31 *sht,float* data){
-    if (dt == nullptr) return;
+    if (sht == nullptr) return false;
     return sht->readTH(data);
 }
 
 float mgos_ds_sht31_read_temperature(SHT31 *sht){
-    if (sht == nullptr) return;
     return sht->readTemperature();
 }
 
