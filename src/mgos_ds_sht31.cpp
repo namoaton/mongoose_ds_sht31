@@ -17,7 +17,7 @@ void mgos_ds28e17_rmt_close(SHT31 *sht) {
 
 bool mgos_ds_sht31_begin(SHT31 *sht,uint8_t i2caddr){
     if (sht == nullptr) return false;
-    return sht->begin(sht->_ds,sht->_deviceAddress,i2caddr);
+    return sht->begin(sht,i2caddr);
 }
 
 bool mgos_ds_sht31_read_TH(SHT31 *sht,float* data){

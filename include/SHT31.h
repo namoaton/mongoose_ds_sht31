@@ -41,6 +41,8 @@ public:
 
     bool begin(DS28E17Rmt *ds, char *ds_addr, uint8_t i2caddr = SHT31_DEFAULT_ADDR);
 
+    bool begin(SHT31 * sht, uint8_t i2caddr);
+
     bool readTH(float *data);
 
     float readTemperature(void);
