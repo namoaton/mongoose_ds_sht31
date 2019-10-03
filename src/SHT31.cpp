@@ -24,7 +24,7 @@ SHT31::~SHT31() {
     }
 }
 void SHT31::init(DS28E17Rmt *ds, char* ds_addr,  uint8_t addr){
-    _i2caddr = i2caddr;
+    _i2caddr = addr;
     setBridge(ds);
     memcpy(_deviceAddress,ds_addr,8);
 }
