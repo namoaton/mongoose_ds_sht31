@@ -36,7 +36,7 @@ bool SHT31::begin(DS28E17Rmt * ds, char* ds_addr, uint8_t i2caddr) {;
     reset();
   return true;
 }
-bool SHT31::begin(SHT31 * sht, uint8_t i2caddr) {
+bool SHT31::begin(uint8_t i2caddr) {
     _i2caddr = i2caddr;
     reset();
     return true;
