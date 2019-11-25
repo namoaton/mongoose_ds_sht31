@@ -100,7 +100,7 @@ bool SHT31::readTempHum(void) {
   uint8_t readbuffer[6];
 
   writeCommand(SHT31_MEAS_HIGHREP);  
-  mgos_msleep(500);
+  mgos_msleep(50);
   _ds->ReadDataStop((uint8_t*) _deviceAddress, (_i2caddr<<1)|1, 6, readbuffer);
 
   uint16_t ST, SRH;
